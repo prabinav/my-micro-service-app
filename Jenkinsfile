@@ -27,6 +27,17 @@ pipeline {
             }
         }
         
+         stage('Push the artifacts'){
+           steps{
+                script{
+                    sh '''
+                    echo 'Push to Repo'
+                    docker push iamprabin/cicd:${BUILD_NUMBER}
+                    '''
+                }
+            }
+        }
+        
         
         
         
