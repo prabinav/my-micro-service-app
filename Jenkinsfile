@@ -15,6 +15,22 @@ pipeline {
                 branch: 'main'
            }
         }
+        
+        stage('Build Docker'){
+            steps{
+                script{
+                    sh '''
+                    echo 'Buid Docker Image'
+                    docker build -t iamprabin/cicd:${BUILD_NUMBER} .
+                    '''
+                }
+            }
+        }
+        
+        
+        
+        
+        
     }
   
 }
