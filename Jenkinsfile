@@ -10,8 +10,8 @@ pipeline {
         
         stage('Checkout'){
            steps {
-                git credentialsId: 'f87a34a8-0e09-45e7-b9cf-6dc68feac670', 
-                url: 'https://github.com/iam-veeramalla/cicd-end-to-end',
+                git credentialsId: '53ad6e8d-f843-40d1-8fb6-52ebd9a7504b', 
+                url: 'https://github.com/prabinav/my-micro-service-app',
                 branch: 'main'
            }
         }
