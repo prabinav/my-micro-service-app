@@ -52,10 +52,11 @@ pipeline {
                 script{
                     withCredentials([usernamePassword(credentialsId: '53ad6e8d-f843-40d1-8fb6-52ebd9a7504b', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                         sh '''
-                        cat micro-app/microservice.yaml
-                        sed -i '' "s/5/${BUILD_NUMBER}/g" micro-app/microservice.yaml
-                        cat micro-app/microservice.yaml
-                        git add micro-app/microservice.yaml
+                        cd micro-app
+                        cat microservice.yaml
+                        sed -i '' "s/5/${BUILD_NUMBER}/g" microservice.yaml
+                        cat microservice.yaml
+                        git add microservice.yaml
                         git commit -m 'Updated the microservice.yaml | Jenkins Pipeline'
                         git remote -v
                         git push https://github.com/prabinav/argocd-my-app.git HEAD:main
