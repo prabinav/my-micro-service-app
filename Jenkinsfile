@@ -47,17 +47,6 @@ pipeline {
         }
         
         
-        stage('Print Credentials') {
-            steps {
-                script {
-                      withCredentials([usernamePassword(credentialsId: '53ad6e8d-f843-40d1-8fb6-52ebd9a7504b', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-                         echo "Username: ${GIT_USERNAME}"
-                         echo "Password: ${PASSWORD}"
-      }
-    }
-  }
-}
-        
         
         
         stage('Update K8S manifest & push to Repo'){
