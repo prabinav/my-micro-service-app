@@ -47,6 +47,25 @@ pipeline {
         }
         
         
+        stage('Update K8S manifest & push to Repo'){
+            steps {
+                script{
+                    withCredentials([usernamePassword(credentialsId: '53ad6e8d-f843-40d1-8fb6-52ebd9a7504b', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                        sh '''
+                        cat microservice.yaml
+                        sed -i '' "s/6/${BUILD_NUMBER}/g" microservice.yaml
+                        cat microservice.yaml
+                        git add microservice.yaml
+                        git commit -m 'Updated the microservice.yaml | Jenkins Pipeline'
+                        git remote -v
+                        git push https://github.com/prabinav/argocd-my-app.git HEAD:main
+                        '''                        
+                    }
+                }
+            }
+        }
+        
+        
         
         
         
