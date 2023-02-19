@@ -54,7 +54,7 @@ pipeline {
                         sh '''
                         cd micro-app
                         cat microservice.yaml
-                        sed -i '' "s/5/${BUILD_NUMBER}/g" microservice.yaml
+                        sed -i "s/5/${BUILD_NUMBER}/g" microservice.yaml
                         cat microservice.yaml
                         git add microservice.yaml
                         git commit -m 'Updated the microservice.yaml | Jenkins Pipeline'
