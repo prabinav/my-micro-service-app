@@ -52,8 +52,8 @@ pipeline {
                 script{
                     withCredentials([usernamePassword(credentialsId: '53ad6e8d-f843-40d1-8fb6-52ebd9a7504b', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                         sh '''
-                        cat microservice.yaml
-                        sed -i '' "s/6/${BUILD_NUMBER}/g" microservice.yaml
+                        cat micro-app/microservice.yaml
+                        sed -i '' "s/5/${BUILD_NUMBER}/g" microservice.yaml
                         cat microservice.yaml
                         git add microservice.yaml
                         git commit -m 'Updated the microservice.yaml | Jenkins Pipeline'
