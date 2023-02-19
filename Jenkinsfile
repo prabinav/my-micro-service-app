@@ -59,7 +59,7 @@ pipeline {
                         git add microservice.yaml
                         git commit -m 'Updated the microservice.yaml | Jenkins Pipeline'
                         git remote -v
-                        git push https://github.com/prabinav/argocd-my-app.git HEAD:main
+                        git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/prabinav/argocd-my-app.git HEAD:main
                         '''                        
                     }
                 }
