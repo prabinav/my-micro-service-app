@@ -38,6 +38,14 @@ pipeline {
             }
         }
         
+        stage('Checkout K8S manifest SCM'){
+            steps {
+                git credentialsId: '53ad6e8d-f843-40d1-8fb6-52ebd9a7504b', 
+                url: 'https://github.com/prabinav/argocd-my-app',
+                branch: 'main'
+            }
+        }
+        
         
         
         
