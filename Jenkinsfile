@@ -47,27 +47,28 @@ pipeline {
         }
         
         
-        
-        
         stage('Update K8S manifest & push to Repo'){
-            steps {
-                script{
-                    withCredentials([usernamePassword(credentialsId: '53ad6e8d-f843-40d1-8fb6-52ebd9a7504b', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-                        sh '''
-                        cat micro-app/microservice.yaml
-                        sed -i "s/5/${BUILD_NUMBER}/g" micro-app/microservice.yaml
-                        cat micro-app/microservice.yaml
-                        git add micro-app/microservice.yaml
-                        git commit -m 'Updated the microservice.yaml | Jenkins Pipeline'
-                        git remote -v
-                        ls -all
-                        git push https://prabinav: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@github.com/prabinav/argocd-my-app.git HEAD:main
-                  
-                        '''                        
-                    }
-                }
-            }
-        }
+  steps {
+    script{
+      withCredentials([sshUserPrivateKey(credentialsId: '07b60c02-3cf2-4632-a791-32c9eb56aa38', keyFileVariable: 'SSH_KEY_FILE', passphraseVariable: 'SSH_PASSPHRASE', usernameVariable: 'SSH_USERNAME')]) {
+        sh '''
+        cat micro-app/microservice.yaml
+        sed -i "s/5/${BUILD_NUMBER}/g" micro-app/microservice.yaml
+        cat micro-app/microservice.yaml
+        git add micro-app/microservice.yaml
+        git commit -m 'Updated the microservice.yaml | Jenkins Pipeline'
+        git remote -v
+        ls -all
+        git remote set-url origin git@github.com:prabinav/argocd-my-app.git
+        ssh-agent bash -c 'ssh-add ${SSH_KEY_FILE}; git push origin HEAD:main'
+        '''
+      }
+    }
+  }
+}
+
+        
+       
         
         
         
