@@ -5,7 +5,7 @@
 <h1>My  PHP app</h1>
 
 <?php
-echo "MY APP -  V3";
+echo "MY APP -  V8";
 ?>
 
 </body>
