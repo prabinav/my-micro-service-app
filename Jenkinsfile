@@ -53,7 +53,7 @@ pipeline {
       withCredentials([sshUserPrivateKey(credentialsId: '07b60c02-3cf2-4632-a791-32c9eb56aa38', keyFileVariable: 'SSH_KEY_FILE', passphraseVariable: 'SSH_PASSPHRASE', usernameVariable: 'SSH_USERNAME')]) {
         sh '''
         cat micro-app/microservice.yaml
-        sed -i "s|image:.*|image: docker.io/iamprabin/cicd:${BUILD_NUMBER}|g" micro-app/microservice.yaml
+        sed -i "s|image: docker.io/iamprabin/cicd:[^ ]*|image: docker.io/iamprabin/cicd:${BUILD_NUMBER}|g" micro-app/microservice.yaml
         cat micro-app/microservice.yaml
         git add micro-app/microservice.yaml
         git commit -m 'Updated the microservice.yaml | Jenkins Pipeline'
