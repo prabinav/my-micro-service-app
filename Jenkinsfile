@@ -59,6 +59,13 @@ pipeline {
         git commit -m 'Updated the microservice.yaml | Jenkins Pipeline'
         git remote -v
         ls -all
+        mkdir -p ~/.ssh
+
+     # Create the config file and add the contents
+     cat << EOF > ~/.ssh/config
+        Host *
+        StrictHostKeyChecking no
+     EOF
         git remote set-url origin git@github.com:prabinav/argocd-my-app.git
         ssh-agent bash -c 'ssh-add ${SSH_KEY_FILE}; git push origin HEAD:main'
         '''
