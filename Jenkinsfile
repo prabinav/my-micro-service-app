@@ -47,7 +47,7 @@ pipeline {
         }
         
         
-        stage('Update K8S manifest & push to Repo'){
+     stage('Update K8S manifest & push to Repo'){
   steps {
     script{
       withCredentials([sshUserPrivateKey(credentialsId: '07b60c02-3cf2-4632-a791-32c9eb56aa38', keyFileVariable: 'SSH_KEY_FILE', passphraseVariable: 'SSH_PASSPHRASE', usernameVariable: 'SSH_USERNAME')]) {
@@ -59,20 +59,25 @@ pipeline {
         git commit -m 'Updated the microservice.yaml | Jenkins Pipeline'
         git remote -v
         ls -all
+      
+        # Add the SSH config
         mkdir -p ~/.ssh
-
-     # Create the config file and add the contents
-     cat << EOF > ~/.ssh/config
+        cat << EOF > ~/.ssh/config
         Host *
-        StrictHostKeyChecking no
-     EOF
+            StrictHostKeyChecking no
+        EOF
+
+        # Set the remote URL to use SSH
         git remote set-url origin git@github.com:prabinav/argocd-my-app.git
+        
+        # Use ssh-agent to add the SSH key and push the changes
         ssh-agent bash -c 'ssh-add ${SSH_KEY_FILE}; git push origin HEAD:main'
         '''
       }
     }
   }
 }
+
 
         
        
