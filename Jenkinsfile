@@ -42,7 +42,7 @@ pipeline {
             steps {
                 git credentialsId: '53ad6e8d-f843-40d1-8fb6-52ebd9a7504b', 
                 url: 'https://github.com/prabinav/argocd-my-app',
-                branch: 'main'
+                branch: 'php'
             }
         }
         
@@ -64,7 +64,7 @@ pipeline {
         git remote set-url origin git@github.com:prabinav/argocd-my-app.git
         
         # Use ssh-agent to add the SSH key and push the changes
-        ssh-agent bash -c 'ssh-add ${SSH_KEY_FILE}; git push origin HEAD:main'
+        ssh-agent bash -c 'ssh-add ${SSH_KEY_FILE}; git push origin HEAD:php'
         '''
       }
     }
