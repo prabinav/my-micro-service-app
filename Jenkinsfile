@@ -12,16 +12,16 @@ pipeline {
            steps {
                 git credentialsId: '53ad6e8d-f843-40d1-8fb6-52ebd9a7504b', 
                 url: 'https://github.com/prabinav/my-micro-service-app',
-                branch: 'main'
+                branch: 'php'
            }
         }
         
-        stage('Build Docker'){
+        stage('Build PHP Docker Image'){
             steps{
                 script{
                     sh '''
                     echo 'Buid Docker Image'
-                    docker build -t iamprabin/cicd:${BUILD_NUMBER} .
+                    docker build -t iamprabin/php:${BUILD_NUMBER} .
                     '''
                 }
             }
@@ -32,7 +32,7 @@ pipeline {
                 script{
                     sh '''
                     echo 'Push to Repo'
-                    docker push iamprabin/cicd:${BUILD_NUMBER}
+                    docker push iamprabin/php:${BUILD_NUMBER}
                     '''
                 }
             }
@@ -53,7 +53,7 @@ pipeline {
       withCredentials([sshUserPrivateKey(credentialsId: '07b60c02-3cf2-4632-a791-32c9eb56aa38', keyFileVariable: 'SSH_KEY_FILE', passphraseVariable: 'SSH_PASSPHRASE', usernameVariable: 'SSH_USERNAME')]) {
         sh '''
         cat micro-app/microservice.yaml
-        sed -i "s|image: docker.io/iamprabin/cicd:[^ ]*|image: docker.io/iamprabin/cicd:${BUILD_NUMBER}|g" micro-app/microservice.yaml
+        sed -i "s|image: docker.io/iamprabin/php:[^ ]*|image: docker.io/iamprabin/php:${BUILD_NUMBER}|g" micro-app/microservice.yaml
         cat micro-app/microservice.yaml
         git add micro-app/microservice.yaml
         git commit -m 'Updated the microservice.yaml | Jenkins Pipeline'
