@@ -58,14 +58,8 @@ pipeline {
         git add micro-app/microservice.yaml
         git commit -m 'Updated the microservice.yaml | Jenkins Pipeline'
         git remote -v
-        ls -all
-      
-        # Add the SSH config
-        mkdir -p ~/.ssh
-        cat << EOF > ~/.ssh/config
-        Host *
-            StrictHostKeyChecking no
-        EOF
+     
+       
 
         # Set the remote URL to use SSH
         git remote set-url origin git@github.com:prabinav/argocd-my-app.git
